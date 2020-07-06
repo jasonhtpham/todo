@@ -119,6 +119,9 @@
 
 
 <div class="container">
+    <a href="https://www.linkedin.com/in/thien-jason-pham-a82352168/" target="_blank"><img src={'https://static.wixstatic.com/media/30a71d_3672d013009b4022999bdf7d855a0ce0~mv2.jpg/v1/fill/w_63,h_63,al_c,q_80,usm_0.66_1.00_0.01/Free_Sample_By_Wix_jfif.webp'} 
+    alt="Jason logo" class="logo"></a>
+
     <h2> Todo App </h2>
     <input type="text" class="todo-input" placeholder="Insert todo item ..." bind:value={newTodoTitle} on:keydown={addTodo} />
 
