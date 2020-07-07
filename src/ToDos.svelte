@@ -23,6 +23,13 @@
     let currentFilter = 'all';
     let nextId = 4;
 
+    /* Things to think:
+    - Can an item be deleted on blockchain?
+    - Expiry feature
+    */
+
+
+
     function addTodo(event) {
         //if Enter key is pressed -> addTodo
         if (event.key === 'Enter') {
@@ -35,6 +42,7 @@
             nextId++;
             newTodoTitle = '';
         }
+        //call contract's method to add task
     }
 
 
@@ -47,6 +55,7 @@
     function checkAllTodos(event) {
         todos.forEach(todo => todo.completed = event.target.checked);
         todos = todos;
+        //call contract method to set as completed
     }
 
     function updateFilter(newFilter) {
@@ -55,10 +64,12 @@
 
     function clearCompleted() {
         todos = todos.filter(todo => !todo.completed);
+        //delete on blockchain??????
     }
 
     function handleDeleteTodo(event) {
         todos = todos.filter(todo => todo.id !== event.detail.id);
+        //delete on blockchain??????
     }
 
     function handleToggleComplete(event) {
@@ -69,6 +80,7 @@
                 updatedTodo,
                 ...todos.slice(todoIndex + 1),
                 ];
+        //call contract method to set as completed
     }
 
 </script>
