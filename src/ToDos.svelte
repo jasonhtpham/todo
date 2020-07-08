@@ -60,8 +60,7 @@
 
     function checkAllTodos(event) {
         todos.forEach(todo => {
-                todo.completed = event.target.checked
-                document.getElementById(todo.id).disabled = true;
+                todo.completed = event.target.checked;
             });
         document.getElementById("checkAll").disabled = true;
 
@@ -83,7 +82,7 @@
     }
 
     function handleToggleComplete(event) {
-        document.getElementById(event.detail.id).disabled = true;
+        // document.getElementById(event.detail.id).disabled = true;
         const todoIndex = todos.findIndex(todo => todo.id === event.detail.id);
         const updatedTodo = {...todos[todoIndex], completed : !todos[todoIndex].completed};
         todos = [

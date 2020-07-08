@@ -53,7 +53,7 @@
 
 <div class="todo-item">
     <div class="todo-item-left" transition:fly="{{ y: 20, duration: 300 }}" >
-        <input type="checkbox" id={id} bind:checked={completed} on:change={toggleComplete}/>
+        <input type="checkbox" disabled={completed} bind:checked={completed} on:change={toggleComplete}/>
         <div class="todo-item-label" class:completed={completed}>
             {title}
         </div>
