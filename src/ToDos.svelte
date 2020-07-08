@@ -42,6 +42,7 @@
             nextId++;
             newTodoTitle = '';
         }
+        resetCheckAll();
         //call contract's method to add task
     }
 
@@ -52,8 +53,18 @@
         ? todos.filter(todo => todo.completed)
         : todos.filter(todo => !todo.completed)
 
+    function resetCheckAll() {
+        document.getElementById("checkAll").disabled = false;
+        document.getElementById("checkAll").checked = false;
+    }
+
     function checkAllTodos(event) {
-        todos.forEach(todo => todo.completed = event.target.checked);
+        todos.forEach(todo => {
+                todo.completed = event.target.checked
+                document.getElementById(todo.id).disabled = true;
+            });
+        document.getElementById("checkAll").disabled = true;
+
         todos = todos;
         //call contract method to set as completed
     }
@@ -64,15 +75,15 @@
 
     function clearCompleted() {
         todos = todos.filter(todo => !todo.completed);
-        //delete on blockchain??????
+        resetCheckAll();
     }
 
     function handleDeleteTodo(event) {
         todos = todos.filter(todo => todo.id !== event.detail.id);
-        //delete on blockchain??????
     }
 
     function handleToggleComplete(event) {
+        document.getElementById(event.detail.id).disabled = true;
         const todoIndex = todos.findIndex(todo => todo.id === event.detail.id);
         const updatedTodo = {...todos[todoIndex], completed : !todos[todoIndex].completed};
         todos = [
@@ -145,7 +156,7 @@
 
     <div class="inner-container">
         <div>
-            <label> <input class="inner-container-input" type="checkbox" on:change={checkAllTodos} /> Check All </label>
+            <label> <input class="inner-container-input" type="checkbox" id="checkAll" on:change={checkAllTodos} /> Check All </label>
         </div>
 
         <div>
