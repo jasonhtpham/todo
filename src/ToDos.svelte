@@ -1,27 +1,10 @@
 <script>
     import TodoItem from './TodoItem.svelte';
-    // import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-    // const dispatch = createEventDispatcher();
+    const dispatch = createEventDispatcher();
 
-    // export let todos;
-    let todos = [
-        {
-            id: 1,
-            title: 'My first todo',
-            completed: false
-        },
-        {
-            id: 2,
-            title: 'My second todo',
-            completed: false
-        },
-        {
-            id: 3,
-            title: 'My third todo',
-            completed: false
-        },
-    ];
+    export let todos;
 
     let newTodoTitle = '';
     let currentFilter = 'all';
@@ -37,9 +20,9 @@
                 title: newTodoTitle
             }];
 
-            // dispatch('addTodo', {
-            //     text: 'addTodo Test'
-            // });
+            dispatch('addTodo', {
+                text: 'addTodo Test'
+            });
 
             nextId++;
             newTodoTitle = '';
@@ -69,6 +52,9 @@
 
         todos = todos;
         //call contract method to set as completed
+        dispatch('markCompletedAll', {
+            text:'markCompletedAll Test'
+        });
     }
 
     function updateFilter(newFilter) {
@@ -93,10 +79,10 @@
                 ...todos.slice(todoIndex + 1),
                 ];
         
-        //call contract method to set as completed
-        // dispatch('markCompleted', {
-        //     text:'markCompleted Test'
-        // });
+        // call contract method to set as completed
+        dispatch('markCompleted', {
+            text:'markCompleted Test'
+        });
     }
 
 </script>
