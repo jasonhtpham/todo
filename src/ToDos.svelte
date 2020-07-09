@@ -1,6 +1,10 @@
 <script>
     import TodoItem from './TodoItem.svelte';
+    // import { createEventDispatcher } from 'svelte';
 
+    // const dispatch = createEventDispatcher();
+
+    // export let todos;
     let todos = [
         {
             id: 1,
@@ -23,12 +27,6 @@
     let currentFilter = 'all';
     let nextId = 4;
 
-    /* Things to think:
-    - Can an item be deleted on blockchain?
-    - Expiry feature
-    */
-
-
 
     function addTodo(event) {
         //if Enter key is pressed -> addTodo
@@ -39,11 +37,16 @@
                 title: newTodoTitle
             }];
 
+            // dispatch('addTodo', {
+            //     text: 'addTodo Test'
+            // });
+
             nextId++;
             newTodoTitle = '';
+
+            resetCheckAll();
+
         }
-        resetCheckAll();
-        //call contract's method to add task
     }
 
 
@@ -82,7 +85,6 @@
     }
 
     function handleToggleComplete(event) {
-        // document.getElementById(event.detail.id).disabled = true;
         const todoIndex = todos.findIndex(todo => todo.id === event.detail.id);
         const updatedTodo = {...todos[todoIndex], completed : !todos[todoIndex].completed};
         todos = [
@@ -90,7 +92,11 @@
                 updatedTodo,
                 ...todos.slice(todoIndex + 1),
                 ];
+        
         //call contract method to set as completed
+        // dispatch('markCompleted', {
+        //     text:'markCompleted Test'
+        // });
     }
 
 </script>
