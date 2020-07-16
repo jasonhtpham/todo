@@ -14,14 +14,14 @@
     function addTodo(event) {
         //if Enter key is pressed -> addTodo
         if (event.key === 'Enter') {
-            todos = [...todos, {
-                id: nextId,
-                completed: false,
-                title: newTodoTitle
-            }];
+            // todos = [...todos, {
+            //     id: nextId,
+            //     completed: false,
+            //     title: newTodoTitle
+            // }];
 
             dispatch('addTodo', {
-                text: 'addTodo Test'
+                text: newTodoTitle
             });
 
             nextId++;

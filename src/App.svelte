@@ -14,25 +14,26 @@
   let callerAddress;
 
 	export let todos = [
-        {
-            id: 1,
-            title: 'My first todo',
-            completed: false
-        },
-        {
-            id: 2,
-            title: 'My second todo',
-            completed: false
-        },
-        {
-            id: 3,
-            title: 'My third todo',
-            completed: false
-        },
-	];
+        // {
+        //     id: 1,
+        //     title: 'My first todo',
+        //     completed: false
+        // },
+        // {
+        //     id: 2,
+        //     title: 'My second todo',
+        //     completed: false
+        // },
+        // {
+        //     id: 3,
+        //     title: 'My third todo',
+        //     completed: false
+        // },
+  ];
 	
-	function addTodoSC(event) {
-		console.log(event.detail.text);
+	async function addTodoSC(event) {
+    await todoSC.methods.addItem(event.detail.text, false).send({from:callerAddress});
+    getTodosFromSC();
 	}
 
 	function markCompletedSC(event) {
@@ -41,18 +42,40 @@
 
 	function markCompletedAllSC(event) {
 		console.log(event.detail.text);
-	}
+  }
+  
+  async function getTodosFromSC() {
+    const results = await todoSC.methods.getAllTodos().call({from:callerAddress});
+    console.log(results);
+    results.forEach(result => {
+      todos = [...todos, {
+                id: result.id,
+                completed: result.completed,
+                title: result.task
+            }];
+    });
+  }
 
   function startApp() {
     todoSC = new web3.eth.Contract(todoABI,scAddress);
+    getTodosFromSC();
   }
 
   window.addEventListener('load', async function() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof web3 !== 'undefined') {
     // Use Mist/MetaMask's provider
-    // console.log(web3);
     web3 = new Web3(window.web3.currentProvider);
+    window.ethereum.enable();
+    // console.log(web3);
+    } else {
+      // console.log("Error! There is no provider to use!!!");
+      return noWeb3 = true;
+    }
+
+    // Now you can start your app & access web3js freely:
+    try {
+    startApp()
 
     //Get current user's address
     var accounts = await web3.eth.getAccounts();
@@ -64,16 +87,6 @@
         callerAddress = accounts[0];
       }
     }, 100);
-    console.log(callerAddress);
-
-    } else {
-      // console.log("Error! There is no provider to use!!!");
-      return noWeb3 = true;
-    }
-
-    // Now you can start your app & access web3js freely:
-    try {
-    startApp()
 
     } catch (e) {
       console.log(e);
