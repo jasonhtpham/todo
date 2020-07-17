@@ -13,31 +13,16 @@
   let todoSC;
   let callerAddress;
 
-	export let todos = [
-        // {
-        //     id: 1,
-        //     title: 'My first todo',
-        //     completed: false
-        // },
-        // {
-        //     id: 2,
-        //     title: 'My second todo',
-        //     completed: false
-        // },
-        // {
-        //     id: 3,
-        //     title: 'My third todo',
-        //     completed: false
-        // },
-  ];
+	export let todos = [];
 	
 	async function addTodoSC(event) {
     await todoSC.methods.addItem(event.detail.text, false).send({from:callerAddress});
     getTodosFromSC();
 	}
 
-	function markCompletedSC(event) {
-		console.log(event.detail.text);
+	async function markCompletedSC(event) {
+    // console.log(event.detail.id);
+    await todoSC.methods.markCompleted(event.detail.id).send({from:callerAddress});
 	}
 
 	function markCompletedAllSC(event) {

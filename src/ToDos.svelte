@@ -81,7 +81,7 @@
         
         // call contract method to set as completed
         dispatch('markCompleted', {
-            text:'markCompleted Test'
+            id : event.detail.id
         });
     }
 
