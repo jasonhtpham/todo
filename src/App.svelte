@@ -46,14 +46,25 @@
   
   async function getTodosFromSC() {
     const results = await todoSC.methods.getAllTodos().call({from:callerAddress});
-    console.log(results);
-    results.forEach(result => {
+    // Check if there are any elements already in todos[]
+    // "todos.length == 0" is when the web is started -> get all todos from SC
+    // "todos.length != 0" is when there are todos loaded from SC
+    // -> Update todos with the latest added todo.
+    if (todos.length == 0) {
+      results.forEach(result => {
       todos = [...todos, {
                 id: result.id,
                 completed: result.completed,
                 title: result.task
             }];
-    });
+      });
+    } else {
+      todos = [...todos, {
+                id: results[results.length-1].id,
+                completed: results[results.length-1].completed,
+                title: results[results.length-1].task
+            }];
+    }
   }
 
   function startApp() {
