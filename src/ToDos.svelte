@@ -8,7 +8,6 @@
 
     let newTodoTitle = '';
     let currentFilter = 'all';
-    let nextId = 4;
 
 
     function addTodo(event) {
@@ -25,7 +24,6 @@
                 completed: false
             });
 
-            nextId++;
             newTodoTitle = '';
 
             resetCheckAll();
@@ -34,7 +32,7 @@
     }
 
 
-    $: todosRemaining = filteredTodos.filter(todo => !todo.completed).length;
+    $: todosRemaining = filteredTodos.length;
 
     $: filteredTodos = currentFilter === 'all' ? todos : currentFilter === 'completed' 
         ? todos.filter(todo => todo.completed)
@@ -152,7 +150,7 @@
         </div>
 
         <div>
-            {todosRemaining} items left
+            {todosRemaining} items
         </div>
     </div>
 

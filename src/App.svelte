@@ -18,12 +18,15 @@
 	async function addTodoSC(event) {
     await todoSC.methods.addItem(event.detail.title, event.detail.completed).send({from:callerAddress});
     
-    getTodosFromSC();
+    window.location.reload();
 	}
 
 	async function markCompletedSC(event) {
     // console.log(event.detail.id);
     await todoSC.methods.markCompleted(event.detail.id).send({from:callerAddress});
+
+    window.location.reload();
+
 	}
 
 	function markCompletedAllSC(event) {
