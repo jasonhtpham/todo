@@ -16,7 +16,8 @@
 	export let todos = [];
 	
 	async function addTodoSC(event) {
-    await todoSC.methods.addItem(event.detail.text, false).send({from:callerAddress});
+    await todoSC.methods.addItem(event.detail.title, event.detail.completed).send({from:callerAddress});
+    
     getTodosFromSC();
 	}
 

@@ -21,7 +21,8 @@
             // }];
 
             dispatch('addTodo', {
-                text: newTodoTitle
+                title: newTodoTitle,
+                completed: false
             });
 
             nextId++;
